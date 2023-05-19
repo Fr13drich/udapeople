@@ -171,7 +171,7 @@ jobs:
       - destroy-environment     
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: contentwisetv/ansible-aws
     steps:
       # Checkout code from git
       - checkout
@@ -188,6 +188,8 @@ jobs:
       - run:
           name: Configure server
           command: |
+            pwd
+            ls -laR
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure      
       - destroy-environment
