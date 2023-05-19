@@ -184,6 +184,7 @@ workflows:
       - scan-backend:
           requires: 
             - build-backend
-      deploy-infrastructure:
+      - deploy-infrastructure:
+          requires:
             - test-frontend
             - test-backend
