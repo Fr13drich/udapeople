@@ -171,7 +171,7 @@ jobs:
       - destroy-environment     
   configure-infrastructure:
     docker:
-      - image: contentwisetv/ansible-aws
+      - image: prooph/ansible-aws-cli   
     steps:
       # Checkout code from git
       - checkout
