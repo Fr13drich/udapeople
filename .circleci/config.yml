@@ -167,7 +167,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
+            - inventory.txt
       - destroy-environment     
   configure-infrastructure:
     docker:
@@ -180,7 +180,7 @@ jobs:
       # Add ssh keys with fingerprint
       # attach workspace
       - attach_workspace:
-          at: /root/project/.circleci/ansible
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -190,7 +190,7 @@ jobs:
           command: |
             pwd
             cat .circleci/ansible/inventory.txt
-            ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
+            ansible-playbook -i inventory.txt .circleci/ansible/configure-server.yml
       # Here's where you will add some code to rollback on failure      
       - destroy-environment
 
