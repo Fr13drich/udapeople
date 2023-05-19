@@ -10,8 +10,8 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
+            aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
-            #exit 1
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
@@ -180,7 +180,7 @@ jobs:
       # Add ssh keys with fingerprint
       # attach workspace
       - attach_workspace:
-          at: project/.circleci/ansible
+          at: /root/project/.circleci/ansible
       - run:
           name: Install dependencies
           command: |
@@ -189,7 +189,7 @@ jobs:
           name: Configure server
           command: |
             pwd
-            ls -laR
+            find . -name configure-server.yml
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure      
       - destroy-environment
