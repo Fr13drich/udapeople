@@ -179,6 +179,8 @@ jobs:
           fingerprints: ["9f:28:75:77:24:fa:aa:56:60:c1:4e:ac:f9:c5:c0:8c"]
       # Add ssh keys with fingerprint
       # attach workspace
+      - attach_workspace:
+          at: project/.circleci/ansible
       - run:
           name: Install dependencies
           command: |
@@ -188,6 +190,7 @@ jobs:
           command: |
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure      
+      - destroy-environment
 
 workflows:
   default:
@@ -210,3 +213,7 @@ workflows:
           requires:
             - test-frontend
             - test-backend
+      - configure-infrastructure:
+           requires:
+            - deploy-infrastructure
+
