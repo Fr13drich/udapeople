@@ -134,7 +134,7 @@ jobs:
           name: install tar and gzip
           command: |
             yum -y install tar gzip
-       - run:
+      - run:
           name: Install Ansible
           command: |
             apk add --update ansible
