@@ -192,16 +192,11 @@ jobs:
           command: |
             apk add --update ansible
       - run:
-          name: Write the new ec2 instance host key to known hosts
-          command: |       
-            ssh-keyscan -H {{ inventory_hostname }} >> ~/.ssh/known_hosts
-
-      - run:
           name: Configure server
           command: |
             pwd
             cat .circleci/ansible/inventory.txt
-            cat .circleci/ansible/.ansible.cfg
+            cat .ansible.cfg
             ansible-playbook -vvvi .circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
       # Here's where you will add some code to rollback on failure      
       - destroy-environment
