@@ -135,10 +135,10 @@ jobs:
           name: install tar and gzip
           command: |
             yum -y install tar gzip
-      - run:
-          name: Install Ansible
-          command: |
-            yum -y install ansible
+      # - run:
+      #    name: Install Ansible
+      #    command: |
+      #      yum -y install ansible
       - run:
           name: Ensure back-end infrastructure exists
           command: |
