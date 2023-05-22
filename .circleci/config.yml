@@ -176,7 +176,8 @@ jobs:
       - destroy-environment     
   configure-infrastructure:
     docker:
-      - image: prooph/ansible-aws-cli   
+      -image: python:3.7-alpine3.11
+      # - image: prooph/ansible-aws-cli   
     steps:
       # Checkout code from git
       - checkout
@@ -197,9 +198,9 @@ jobs:
             pwd
             cat .circleci/ansible/inventory.txt
             cat ansible.cfg
-            ansible-playbook -vvvi .circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
+            ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
       # Here's where you will add some code to rollback on failure      
-      - destroy-environment
+      # - destroy-environment
 
 workflows:
   default:
