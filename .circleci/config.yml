@@ -176,8 +176,8 @@ jobs:
       - destroy-environment     
   configure-infrastructure:
     docker:
-      # - image: python:3.7-alpine3.11
-      - image: prooph/ansible-aws-cli   
+      - image: python:3.7-alpine3.11
+        # - image: prooph/ansible-aws-cli   
     steps:
       # Checkout code from git
       - checkout
@@ -192,6 +192,16 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
+      - run:
+          name: Install awscli
+          command: |
+            apk add --no-cache \
+            python3 \
+            py3-pip \
+            && pip3 install --upgrade pip \
+            && pip3 install --no-cache-dir \
+            awscli \
+            && rm -rf /var/cache/apk/*
       - run:
           name: Configure server
           command: |
