@@ -176,8 +176,8 @@ jobs:
       - destroy-environment     
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
-      # - image: prooph/ansible-aws-cli   
+      # - image: python:3.7-alpine3.11
+      - image: prooph/ansible-aws-cli   
     steps:
       # Checkout code from git
       - checkout
