@@ -44,6 +44,7 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
+            npm update
             npm install
             npm run build
       - save_cache:
@@ -230,6 +231,8 @@ jobs:
               if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
               then
                 curl https://kvdb.io/BiNXxK1ux3UTi4YAqLVXmQ/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              else
+                curl https://kvdb.io/BiNXxK1ux3UTi4YAqLVXmQ/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '0'
               fi
      # Here's where you will add some code to rollback on failure
       - revert-migrations
