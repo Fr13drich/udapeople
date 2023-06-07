@@ -44,7 +44,7 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
-            npm update
+            # bad idea npm update
             npm install
             npm run build
       - save_cache:
