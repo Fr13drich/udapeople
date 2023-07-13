@@ -170,7 +170,6 @@ jobs:
               --filter "Name=tag:Name,Values='backend-${CIRCLE_WORKFLOW_ID:0:7}'" \
               --output text >> .circleci/ansible/inventory.txt
               cat  .circleci/ansible/inventory.txt
-            #exit 1
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -186,8 +185,6 @@ jobs:
       - add_ssh_keys:
           #fingerprints: ["f2:cf:28:94:b9:95:6a:af:30:53:0d:0f:13:eb:f4:6b"]  
           fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
-      # Add ssh keys with fingerprint
-      # attach workspace
       - attach_workspace:
           at: ~/project
       - run:
@@ -243,7 +240,7 @@ jobs:
       - destroy-environment
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli      # Docker image here that supports AWS CLI
+      - image: python:3.11-rc-alpine
     steps:
       - checkout
       - aws-cli/setup:
@@ -288,10 +285,8 @@ jobs:
       - image: python:3.7-alpine3.11  # Docker image here that supports Ansible
     steps:
       - checkout
-      # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
-      # attach workspace
       - attach_workspace:
           at: ~/project
       - run:
@@ -313,8 +308,8 @@ jobs:
             tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
-            cat .circleci/ansible/inventory.txt
-            ansible-playbook -i inventory.txt deploy-backend.yml
+            cat  ~/project/.circleci/ansible/inventory.txt
+            ansible-playbook -i  ~/project/.circleci/ansible/inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure
       - revert-migrations
       - destroy-environment
