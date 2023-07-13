@@ -244,11 +244,11 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
+          profile_name: default
       - run:
           name: Install curl
           command: |
             apk add --update curl
-          profile_name: default
       - run:
           name: Install Ansible
           command: |
