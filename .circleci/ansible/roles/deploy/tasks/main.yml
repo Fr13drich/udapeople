@@ -24,6 +24,13 @@
     global: yes
     production: yes
     state: present
+- name: "Creates directory"
+  file:
+    path: /home/ubuntu/web
+    state: directory
+- name: "find file"
+  shell: |
+    find / -name artifact.tar.gz
 - name: Copy zip file
   template:
     src: "artifact.tar.gz"
