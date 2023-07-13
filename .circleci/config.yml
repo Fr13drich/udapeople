@@ -248,7 +248,7 @@ jobs:
       - run:
           name: Install curl
           command: |
-            apk add --update curl
+            apk add --update curl bash
       - run:
           name: Install Ansible
           command: |
@@ -280,7 +280,7 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             # aws s3 cp dist s3://udapeople928015429973 --recursive
-            aws s3 cp dist s3://udapeople${CIRCLE_WORKFLOW_ID:0:7}
+            aws s3 cp dist s3://udapeople-083514955588
       # Here's where you will add some code to rollback on failure
       - revert-migrations
       - destroy-environment
@@ -289,6 +289,8 @@ jobs:
       - image: python:3.11-rc-alpine # python:3.7-alpine3.11 
     steps:
       - checkout
+      - aws-cli/setup:
+          profile_name: default
       - add_ssh_keys:
           fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
       - attach_workspace:
@@ -297,6 +299,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
+            apk add --update curl bash
       - run:
           name: Install npm
           command: |
