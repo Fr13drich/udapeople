@@ -317,7 +317,10 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat  ~/project/.circleci/ansible/inventory.txt
             ansible-playbook -i  ~/project/.circleci/ansible/inventory.txt deploy-backend.yml
-      # Here's where you will add some code to rollback on failure
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .circleci/ansible/roles/deploy/artifact.tar.gz
       - revert-migrations
       - destroy-environment
 workflows:
