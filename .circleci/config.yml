@@ -252,7 +252,7 @@ jobs:
       - run:
           name: Install python
           command: |
-            apk add --update python
+            apk add --update python3
       - run:
           name: Install npm
           command: |
