@@ -31,7 +31,8 @@ commands:
               #  Add revert code here. You can find this in the Getting Started section.
               npm run migrations:revert
             fi
-            
+orbs:
+  aws-cli: circleci/aws-cli@4.0.0            
 jobs:
   build-frontend:
     docker:
@@ -216,23 +217,11 @@ jobs:
   run-migrations:
     docker:
       - image: circleci/node:14.18.1
+    executor: aws-cli/default
     steps:
       - checkout
-      - run:
-          name: Install awscli
-          command: |
-            pip3 install --upgrade pip 
-            pip3 install --no-cache-dir awscli 
-      # - run:
-      #     name: Install awscli
-      #     command: |
-      #       apk add --no-cache \
-      #       python3 \
-      #         py3-pip \
-      #       && pip3 install --upgrade pip \
-      #       && pip3 install --no-cache-dir \
-      #       awscli \
-      #       && rm -rf /var/cache/apk/*
+      # - aws-cli/setup
+        #  profile_name: default
       - run:
           name: Run migrations
           command: |
