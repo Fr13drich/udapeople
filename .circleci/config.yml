@@ -215,7 +215,7 @@ jobs:
       - destroy-environment
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0 
+      - image: circleci/node:14.18.1
     steps:
       - checkout
       - run:
