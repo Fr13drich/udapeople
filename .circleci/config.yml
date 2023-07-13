@@ -244,6 +244,10 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
+      - run:
+          name: Install curl
+          command: |
+            apk add --update curl
           profile_name: default
       - run:
           name: Install Ansible
@@ -282,7 +286,7 @@ jobs:
       - destroy-environment
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11  # Docker image here that supports Ansible
+      - image: python:3.11-rc-alpine # python:3.7-alpine3.11 
     steps:
       - checkout
       - add_ssh_keys:
