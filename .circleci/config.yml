@@ -220,8 +220,8 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
-      # - aws-cli/setup
-        #  profile_name: default
+      - aws-cli/setup:
+          profile_name: default
       - run:
           name: Run migrations
           command: |
@@ -245,7 +245,9 @@ jobs:
     docker:
       - image: amazon/aws-cli      # Docker image here that supports AWS CLI
     steps:
-      # Checkout code from git
+      - checkout
+      - aws-cli/setup:
+          profile_name: default
       - run:
           name: Install Ansible
           command: |
@@ -261,7 +263,6 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            # your code here
             BACKEND_IP=`aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filter "Name=tag:Name,Values='backend-${CIRCLE_WORKFLOW_ID:0:7}'" \
@@ -284,10 +285,8 @@ jobs:
       - destroy-environment
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
-      # Docker image here that supports Ansible
+      - image: python:3.7-alpine3.11  # Docker image here that supports Ansible
     steps:
-      # Checkout code from git
       - checkout
       # Add ssh keys with fingerprint
       - add_ssh_keys:
@@ -299,6 +298,10 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
+      - run:
+          name: Install npm
+          command: |
+            apk add --update npm
       - run:
           name: Deploy backend
           command: |
