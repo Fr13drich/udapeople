@@ -28,12 +28,9 @@
   file:
     path: /home/ubuntu/web
     state: directory
-- name: "find file"
-  shell: |
-    find / -name artifact.tar.gz
 - name: Copy zip file
   template:
-    src: "artifact.tar.gz"
+    src: "~/project/artifact.tar.gz"
     dest: "/home/ubuntu/web/artifact.tar.gz" 
 - name: extract
   shell: |
