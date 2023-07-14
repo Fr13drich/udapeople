@@ -322,7 +322,7 @@ jobs:
           command: |
             ls -la ~/project
             echo "Contents  of the inventory.txt file is -------"
-            cat  inventory.txt
+            cat  .circleci/ansible/inventory.txt
             cd .circleci/ansible
             ansible-playbook -i  ~/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
