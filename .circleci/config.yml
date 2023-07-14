@@ -36,7 +36,7 @@ orbs:
 jobs:
   build-frontend:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - restore_cache:
@@ -54,7 +54,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - restore_cache:
@@ -71,7 +71,7 @@ jobs:
 
   test-frontend:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - restore_cache:
@@ -86,7 +86,7 @@ jobs:
 
   test-backend:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - restore_cache:
@@ -100,7 +100,7 @@ jobs:
             npm run test
   scan-frontend:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - restore_cache:
@@ -115,7 +115,7 @@ jobs:
 
   scan-backend:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - restore_cache:
@@ -164,7 +164,7 @@ jobs:
           command: |
             pwd
             ls -laR
-            #echo "[backend]" > inventory.txt
+            echo "[all]" > inventory.txt
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filter "Name=tag:Name,Values='backend-${CIRCLE_WORKFLOW_ID:0:7}'" \
@@ -213,7 +213,7 @@ jobs:
       - destroy-environment
   run-migrations:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     executor: aws-cli/default
     steps:
       - checkout
