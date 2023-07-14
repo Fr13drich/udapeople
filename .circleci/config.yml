@@ -205,9 +205,9 @@ jobs:
           name: Configure server
           command: |
             pwd
-            cat .circleci/ansible/inventory.txt
+            cat ~/project/.circleci/ansible/inventory.txt
             cat ansible.cfg
-            ansible-playbook --ssh-extra-args='-q' -i .circleci/ansible/inventory.txt \
+            ansible-playbook --ssh-extra-args='-q' -i ~/project/.circleci/ansible/inventory.txt \
               .circleci/ansible/configure-server.yml
       # Here's where you will add some code to rollback on failure      
       - destroy-environment
