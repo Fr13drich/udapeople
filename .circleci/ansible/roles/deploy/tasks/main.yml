@@ -7,10 +7,6 @@
   become: yes
   apt:
     upgrade: yes
-- name: "Creates directory"
-  file:
-    path: /home/ubuntu/web
-    state: directory
 - name: "install nodejs and npm"
   become: yes
   apt:
