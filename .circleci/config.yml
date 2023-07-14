@@ -317,7 +317,7 @@ jobs:
           root: ~/
           paths:
             - .circleci/ansible/roles/deploy/files/artifact.tar.gz
-       - run:
+      - run:
           name: Deploy backend
           command: |
             cd .circleci/ansible
