@@ -305,7 +305,7 @@ jobs:
           command: |
             apk add --update npm
       - run:
-          name: zip
+          name: build and zip
           command: |
             cd backend
             npm i
@@ -314,9 +314,8 @@ jobs:
             ## Zip the directory
             tar -C backend -czvf artifact.tar.gz .
       - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .circleci/ansible/roles/deploy/files/artifact.tar.gz
+          root: ~/project/.circleci/ansible/roles/deploy/files
+          paths: artifact.tar.gz
       - run:
           name: Deploy backend
           command: |
