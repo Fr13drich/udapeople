@@ -305,7 +305,7 @@ jobs:
           command: |
             apk add --update npm
       - run:
-          name: Deploy backend
+          name: zip
           command: |
             cd backend
             npm i
@@ -313,14 +313,17 @@ jobs:
             cd ..
             ## Zip the directory
             tar -C backend -czvf artifact.tar.gz .
-            cd .circleci/ansible
-            echo "Contents  of the inventory.txt file is -------"
-            cat  ~/.circleci/ansible/inventory.txt
-            ansible-playbook -i  ~/.circleci/ansible/inventory.txt deploy-backend.yml
       - persist_to_workspace:
           root: ~/
           paths:
             - .circleci/ansible/roles/deploy/files/artifact.tar.gz
+       - run:
+          name: Deploy backend
+          command: |
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat  ~/.circleci/ansible/inventory.txt
+            ansible-playbook -i  ~/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
       - destroy-environment
 workflows:
