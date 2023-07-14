@@ -313,15 +313,17 @@ jobs:
             cd ..
             ## Zip the directory
             tar -C backend -czvf artifact.tar.gz .
+            ls -la  ~/project/
       - persist_to_workspace:
           root: ~/project/
           paths: artifact.tar.gz
       - run:
           name: Deploy backend
           command: |
-            cd .circleci/ansible
+            ls -la ~/project
             echo "Contents  of the inventory.txt file is -------"
-            cat  ~/.circleci/ansible/inventory.txt
+            cat  inventory.txt
+            cd .circleci/ansible
             ansible-playbook -i  ~/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
       - destroy-environment
