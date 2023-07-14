@@ -24,9 +24,9 @@ commands:
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS=`curl --insecure https://kvdb.io/BiNXxK1ux3UTi4YAqLVXmQ/migration_${CIRCLE_WORKFLOW_ID:0:7}`
-            if(( $SUCCESS == 1 )); 
+            if (( $SUCCESS == 1 )); 
             then
-              cd ~/project/backend
+              cd ~/backend
               npm install
               #  Add revert code here. You can find this in the Getting Started section.
               npm run migrations:revert
@@ -171,7 +171,7 @@ jobs:
               --output text >> .circleci/ansible/inventory.txt
               cat  .circleci/ansible/inventory.txt
       - persist_to_workspace:
-          root: ~/project
+          root: ~/
           paths:
             - .circleci/ansible/inventory.txt
       - destroy-environment     
@@ -186,7 +186,7 @@ jobs:
           #fingerprints: ["f2:cf:28:94:b9:95:6a:af:30:53:0d:0f:13:eb:f4:6b"]  
           fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
       - attach_workspace:
-          at: ~/project
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -229,7 +229,7 @@ jobs:
       - run:
           name: Send migration results to memstash
           command: |
-              if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+              if grep -q "has been executed successfully." ~/backend/migrations_dump.txt
               then
                 curl https://kvdb.io/BiNXxK1ux3UTi4YAqLVXmQ/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               else
@@ -294,7 +294,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
       - attach_workspace:
-          at: ~/project
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -315,12 +315,12 @@ jobs:
             tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
-            cat  ~/project/.circleci/ansible/inventory.txt
-            ansible-playbook -i  ~/project/.circleci/ansible/inventory.txt deploy-backend.yml
+            cat  ~/.circleci/ansible/inventory.txt
+            ansible-playbook -i  ~/.circleci/ansible/inventory.txt deploy-backend.yml
       - persist_to_workspace:
-          root: ~/project
+          root: ~/
           paths:
-            - .circleci/ansible/roles/deploy/artifact.tar.gz
+            - .circleci/ansible/roles/deploy/files/artifact.tar.gz
       - revert-migrations
       - destroy-environment
 workflows:
