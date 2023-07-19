@@ -204,6 +204,7 @@ jobs:
       - run:
           name: Configure server
           command: |
+            chmod 774 ~/project/.circleci/ansible/inventory.txt
             ls -la ~/project/.circleci/ansible/inventory.txt
             cat ~/project/.circleci/ansible/inventory.txt
             cat ansible.cfg
@@ -320,11 +321,11 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            ls -la ~/.circleci/ansible/inventory.txt
+            chmod 774 ~/project/.circleci/ansible/inventory.txt
+            ls -la ~/project/.circleci/ansible/inventory.txt
             echo "Contents  of the inventory.txt file is -------"
             cat  .circleci/ansible/inventory.txt
             cd .circleci/ansible
-            ansible all --list-hosts
             ansible-playbook -i  ~/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
       - destroy-environment
