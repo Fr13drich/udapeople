@@ -207,6 +207,7 @@ jobs:
             pwd
             cat ~/project/.circleci/ansible/inventory.txt
             cat ansible.cfg
+            ansible all --list-hosts
             ansible-playbook --ssh-extra-args='-q' -i ~/project/.circleci/ansible/inventory.txt \
               .circleci/ansible/configure-server.yml
       - destroy-environment
@@ -323,6 +324,7 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat  .circleci/ansible/inventory.txt
             cd .circleci/ansible
+            ansible all --list-hosts
             ansible-playbook -i  ~/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
       - destroy-environment
