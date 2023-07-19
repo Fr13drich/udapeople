@@ -209,8 +209,7 @@ jobs:
             cat ~/project/.circleci/ansible/inventory.txt
             cd .circleci/ansible
             ansible all --list-hosts
-            ansible-playbook --ssh-extra-args='-q' -i ~/project/.circleci/ansible/inventory.txt \
-              .circleci/ansible/configure-server.yml
+            ansible-playbook --ssh-extra-args='-q' -i ~/project/.circleci/ansible/inventory.txt configure-server.yml
       - destroy-environment
   run-migrations:
     docker:
