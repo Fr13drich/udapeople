@@ -157,19 +157,19 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
-              #exit 1
       - run:
           name: Add back-end ip to ansible inventory
           command: |
             pwd
-            ls -laR
+
             echo "[all]" > .circleci/ansible/inventory.txt
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filter "Name=tag:Name,Values='backend-${CIRCLE_WORKFLOW_ID:0:7}'" \
               --output text >> .circleci/ansible/inventory.txt
               echo "" >> .circleci/ansible/inventory.txt
-              cat  .circleci/ansible/inventory.txt
+            ls -la .circleci/ansible/inventory.txt
+            cat  .circleci/ansible/inventory.txt
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -204,7 +204,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            pwd
+            ls -la ~/project/.circleci/ansible/inventory.txt
             cat ~/project/.circleci/ansible/inventory.txt
             cat ansible.cfg
             ansible all --list-hosts
@@ -320,7 +320,7 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            ls -la ~/project
+            ls -la ~/.circleci/ansible/inventory.txt
             echo "Contents  of the inventory.txt file is -------"
             cat  .circleci/ansible/inventory.txt
             cd .circleci/ansible
