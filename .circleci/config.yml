@@ -207,7 +207,7 @@ jobs:
             chmod 774 ~/project/.circleci/ansible/inventory.txt
             ls -la ~/project/.circleci/ansible/inventory.txt
             cat ~/project/.circleci/ansible/inventory.txt
-            cat ansible.cfg
+            cd .circleci/ansible
             ansible all --list-hosts
             ansible-playbook --ssh-extra-args='-q' -i ~/project/.circleci/ansible/inventory.txt \
               .circleci/ansible/configure-server.yml
