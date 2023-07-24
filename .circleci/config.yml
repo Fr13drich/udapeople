@@ -332,6 +332,8 @@ jobs:
       - image: python:3.11-rc-alpine
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Test backend
           command: |
