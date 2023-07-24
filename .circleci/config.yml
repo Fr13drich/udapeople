@@ -162,7 +162,7 @@ jobs:
           command: |
             pwd
 
-            echo "[web]" > .circleci/ansible/inventory.txt
+            echo "[all]" > .circleci/ansible/inventory.txt
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filter "Name=tag:Name,Values='backend-${CIRCLE_WORKFLOW_ID:0:7}'" \
@@ -327,6 +327,35 @@ jobs:
             ansible-playbook -i  ~/project/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
       - destroy-environment
+  smoke-tests:
+    docker:
+      - image: python:3.11-rc-alpine
+    steps:
+      - checkout
+      - run:
+          name: Test backend
+          command: |
+            BACKEND_IP= `tail --lines=1 ~/project/.circleci/ansible/inventory.txt`
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+            if curl "${API_URL}/api/status" | grep "ok"
+            then
+            	return 0
+            else
+            	return 1
+            fi
+      - run:
+          name: Test frontend
+          command: |
+            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
+            echo ${URL} 
+            if curl -s ${URL} | grep "Welcome"
+            then
+            	# Change this to 0 after the job fails
+              return 1
+            else
+              return 1
+            fi
 workflows:
   default:
     jobs:
