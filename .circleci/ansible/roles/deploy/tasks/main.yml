@@ -25,7 +25,7 @@
     path: /home/ubuntu/web
     state: directory
 - name: "Copy zip file"
-  template:
+  copy:
     src: "~/project/artifact.tar.gz"
     dest: "/home/ubuntu/web/artifact.tar.gz" 
 - name: "extract"
