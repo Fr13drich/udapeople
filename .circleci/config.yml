@@ -335,6 +335,10 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
+          name: Install curl
+          command: |
+            apk add --update curl bash
+      - run:
           name: Test backend
           command: |
             BACKEND_IP=$(tail -n 1 ~/project/.circleci/ansible/inventory.txt)
