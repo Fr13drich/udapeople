@@ -337,7 +337,7 @@ jobs:
       - run:
           name: Test backend
           command: |
-            BACKEND_IP= `tail -n 1 ~/project/.circleci/ansible/inventory.txt`
+            BACKEND_IP=$(tail -n 1 ~/project/.circleci/ansible/inventory.txt)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
@@ -358,6 +358,8 @@ jobs:
             else
               return 1
             fi
+      - destroy-environment
+      - revert-migrations
 workflows:
   default:
     jobs:
