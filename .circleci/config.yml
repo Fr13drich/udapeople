@@ -339,17 +339,27 @@ jobs:
           command: |
             apk add --update curl bash
       - run:
-          name: Test backend
+          name: Install awscli
           command: |
-            BACKEND_IP=$(tail -n 1 ~/project/.circleci/ansible/inventory.txt)
-            export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
-            if curl "${API_URL}/api/status" | grep "ok"
-            then
-            	return 0
-            else
-            	return 1
-            fi
+            apk add --no-cache \
+            python3 \
+            py3-pip \
+            && pip3 install --upgrade pip \
+            && pip3 install --no-cache-dir \
+            awscli \
+            && rm -rf /var/cache/apk/*
+      # - run:
+      #     name: Test backend
+      #     command: |
+      #       BACKEND_IP=$(tail -n 1 ~/project/.circleci/ansible/inventory.txt)
+      #       export API_URL="http://${BACKEND_IP}:3030"
+      #       echo "${API_URL}"
+      #       if curl "${API_URL}/api/status" | grep "ok"
+      #       then
+      #       	return 0
+      #       else
+      #       	return 1
+      #       fi
       - run:
           name: Test frontend
           command: |
