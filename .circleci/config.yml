@@ -209,6 +209,8 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       - aws-cli/setup:
           profile_name: default
       - run:
@@ -333,7 +335,7 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i  ~/project/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
-      - destroy-environment
+      # - destroy-environment
   smoke-tests:
     docker:
       - image: python:3.11-rc-alpine
