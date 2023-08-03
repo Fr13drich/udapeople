@@ -27,7 +27,7 @@
 - name: "Copy zip file"
   copy:
     src: "~/project/artifact.tar.gz"
-    dest: "/home/ubuntu/web/artifact.tar.gz" 
+    dest: "/home/ubuntu/backend/artifact.tar.gz" 
 - name: "extract"
   shell: |
     cd /home/ubuntu/backend
