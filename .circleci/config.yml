@@ -370,7 +370,7 @@ jobs:
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
-            	return 0
+            	return 1
             else
             	return 1
             fi
@@ -386,7 +386,7 @@ jobs:
             else
               return 1
             fi
-      # - destroy-environment
+      - destroy-environment
       - revert-migrations
 workflows:
   default:
