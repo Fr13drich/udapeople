@@ -11,7 +11,7 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-          
+            aws s3 rb s3://udapeople-<< parameters.workflow_id >> --force     
             aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.workflow_id>>
             aws cloudformation delete-stack --stack-name udapeople-backend-<<parameters.workflow_id>>
 
@@ -169,8 +169,9 @@ jobs:
           root: ~/project
           paths:
             - .circleci/ansible/inventory.txt
-      - destroy-environment
+      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -205,8 +206,9 @@ jobs:
             cat ~/project/.circleci/ansible/inventory.txt
             cd .circleci/ansible
             ansible-playbook --ssh-extra-args='-q' -i ~/project/.circleci/ansible/inventory.txt configure-server.yml
-      - destroy-environmentµ
+      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          
   run-migrations:
     docker:
       - image: cimg/node:14.18.1
@@ -239,7 +241,7 @@ jobs:
               fi
      # Here's where you will add some code to rollback on failure
       - revert-migrations
-      - destroy-environment
+      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
   deploy-frontend:
     docker:
@@ -286,7 +288,7 @@ jobs:
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       # Here's where you will add some code to rollback on failure
       - revert-migrations
-      - destroy-environment
+      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
   deploy-backend:
     docker:
@@ -341,7 +343,7 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i  ~/project/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
-      - destroy-environment
+      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
   smoke-tests:
     docker:
@@ -393,7 +395,7 @@ jobs:
             else
               return 1
             fi
-      - destroy-environment
+      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations
       
