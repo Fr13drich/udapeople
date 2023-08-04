@@ -414,9 +414,9 @@ jobs:
     steps:
       - checkout 
       - run:
-        name: Install dependencies
-        command: |
-          yum install -y curl tar gzip    
+          name: Install dependencies
+          command: |
+            yum install -y curl tar gzip    
       - run:
           name: Update cloudfront distribution
           command: |
