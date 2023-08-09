@@ -175,10 +175,8 @@ jobs:
     docker:
       - image: python:3.7-alpine3.11
     steps:
-      # Checkout code from git
       - checkout
       - add_ssh_keys:
-          #fingerprints: ["f2:cf:28:94:b9:95:6a:af:30:53:0d:0f:13:eb:f4:6b"]  
           fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
       - attach_workspace:
           at: ~/project
