@@ -462,7 +462,7 @@ jobs:
            name: delete s3 + stacks
            command: |
              pwd
-             find . -name OldWorkflowID.txt
+             ls -laR ~/
              if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "`cat ~/OldWorkflowID.txt`" ]]
              then
                echo "will delete old version"
