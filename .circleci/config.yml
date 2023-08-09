@@ -431,7 +431,7 @@ jobs:
             echo Current Workflow Id: "${CIRCLE_WORKFLOW_ID:0:7}"
           
       - persist_to_workspace:
-          root: ~/project
+          root: ~/
           paths: 
             - OldWorkflowID.txt
             
@@ -441,7 +441,7 @@ jobs:
     steps:
        - checkout 
        - attach_workspace:
-          at: ~/project
+          at: ~/
       # - run:
       #     name: Find old workflow id
       #     command: |
@@ -457,7 +457,7 @@ jobs:
        - run:
            name: delete s3 + stacks
            command: |
-             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "`cat ~/project/OldWorkflowID.txt`" ]]
+             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "`cat OldWorkflowID.txt`" ]]
              then
                echo "will delete old version"
                aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive              
