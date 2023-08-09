@@ -462,8 +462,9 @@ jobs:
            name: delete s3 + stacks
            command: |
              pwd
-             ls -laR ~/
-             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "`cat ~/OldWorkflowID.txt`" ]]
+             OldWorkflowID=`cat /root/OldWorkflowID.txt`
+             echo "OldWorkflowID=$OldWorkflowID"
+             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "$OldWorkflowID" ]]
              then
                echo "will delete old version"
                aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive              
