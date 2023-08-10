@@ -23,3 +23,32 @@
     global: yes
     production: yes
     state: present
+
+- name: "install node_exporter"
+  become: true
+  shell: |
+    sudo useradd --no-create-home node_exporter
+    wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
+    tar xzf node_exporter-1.6.1.linux-amd64.tar.gz
+    sudo cp node_exporter-1.6.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
+    rm -rf node_exporter-1.6.1.linux-amd64.tar.gz node_exporter-1.6.1.linux-amd64
+    
+- name: "Creates directory"
+  file:
+    path: /home/ubuntu/backend
+    state: directory
+
+- name: "Copy config file"
+  copy:
+    src: "node-exporter.service"
+    dest: "/etc/systemd/system/node-exporter.service" 
+
+- name: "Configure systemd"
+  become: true
+  shell: |
+    systemctl daemon-reload
+    systemctl enable node-exporter
+    systemctl start node-exporter
+    systemctl status node-exporter
+
+    
