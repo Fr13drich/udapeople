@@ -33,11 +33,6 @@
     sudo cp node_exporter-1.6.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
     rm -rf node_exporter-1.6.1.linux-amd64.tar.gz node_exporter-1.6.1.linux-amd64
     
-- name: "Creates directory"
-  file:
-    path: /home/ubuntu/backend
-    state: directory
-
 - name: "Copy config file"
   copy:
     src: "node-exporter.service"

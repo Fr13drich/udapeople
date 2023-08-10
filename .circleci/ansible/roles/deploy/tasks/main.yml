@@ -25,6 +25,7 @@
     path: /home/ubuntu/backend
     state: directory
 - name: "Copy zip file"
+  become: yes
   copy:
     src: "~/project/artifact.tar.gz"
     dest: "/home/ubuntu/backend/artifact.tar.gz" 
