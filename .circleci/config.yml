@@ -208,6 +208,8 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
       - restore_cache:
           keys: [backend-build]
       - aws-cli/setup:
@@ -229,7 +231,7 @@ jobs:
               npm install
               # npm run build
               ## Run and save the migration output
-              npm run migrations:revert
+              # npm run migrations:revert
               npm run migrations > migrations_dump.txt
               pwd
               # cat .env
