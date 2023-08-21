@@ -229,6 +229,7 @@ jobs:
               npm install
               # npm run build
               ## Run and save the migration output
+              npm run migrations:revert
               npm run migrations > migrations_dump.txt
               pwd
               # cat .env
