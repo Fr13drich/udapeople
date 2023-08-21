@@ -40,7 +40,6 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
-            # bad idea npm update
             npm install
             npm run build
       - save_cache:
@@ -74,7 +73,6 @@ jobs:
       - run:
           name: test frontend
           command: |
-            ls -la
             cd frontend
             npm install
             npm run test
@@ -89,7 +87,6 @@ jobs:
       - run:
           name: test backend
           command: |
-            ls -la
             cd backend
             npm install
             npm run test
