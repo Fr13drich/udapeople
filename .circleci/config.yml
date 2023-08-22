@@ -238,6 +238,7 @@ jobs:
               TYPEORM_USERNAME=postgres
               TYPEORM_PASSWORD=Mqwkd1vNJvTjeTuRopZ7
               TYPEORM_DATABASE=postgres
+              ls ./src/migrations
               aws rds describe-db-instances
               npm install
               # npm run build
@@ -250,7 +251,7 @@ jobs:
       - run:
           name: Send migration results to memstash
           command: |
-              if grep -q "has been executed successfully." /home/circleci/project/backend/migrations_dump.txt
+              if grep -q "has been executed successfully." migrations_dump.txt
               then
                 curl https://kvdb.io/BiNXxK1ux3UTi4YAqLVXmQ/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
                 echo "migration_${CIRCLE_WORKFLOW_ID:0:7} set to  1"
