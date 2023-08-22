@@ -216,8 +216,8 @@ jobs:
          profile_name: default
       - run:
           name: Run migrations
+          working_directory: ./backend
           command: |
-              cd backend
               # echo ENVIRONMENT=production > .env
               # echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> .env
               # echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> .env
@@ -298,8 +298,8 @@ jobs:
             cat frontend/.env
       - run:
           name: Deploy frontend objects
+          working_directory: ./frontend
           command: |
-            cd frontend
             npm install
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
@@ -320,7 +320,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["de:78:68:62:bd:01:7b:28:8e:6f:56:35:4a:c6:72:e7"]
       - attach_workspace:
-          at: ~/project
+          at: . # ~/project
       - run:
           name: Install dependencies
           command: |
@@ -332,8 +332,8 @@ jobs:
             apk add --update npm
       - run:
           name: build and zip
+          working_directory: ./backend
           command: |
-            cd backend
             echo TYPEORM_CONNECTION=postgres >> ".env"
             echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> ".env"
             echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> ".env"
