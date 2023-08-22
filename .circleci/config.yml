@@ -238,6 +238,7 @@ jobs:
               TYPEORM_USERNAME=postgres
               TYPEORM_PASSWORD=Mqwkd1vNJvTjeTuRopZ7
               TYPEORM_DATABASE=postgres
+              aws rds describe-db-instances
               npm install
               # npm run build
               ## Run and save the migration output
