@@ -240,7 +240,7 @@ jobs:
               TYPEORM_DATABASE=postgres
               ls ./src/migrations
               aws rds describe-db-instances
-              npm install
+              # npm install
               # npm run build
               ## Run and save the migration output
               # npm run migrations:revert
