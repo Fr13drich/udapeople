@@ -229,6 +229,7 @@ jobs:
               # echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> .env
               # echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> .env
               # . .env
+              export ENVIRONMENT=production
               export TYPEORM_CONNECTION=postgres
               export TYPEORM_MIGRATIONS_DIR=./src/migrations
               export TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
