@@ -218,27 +218,27 @@ jobs:
           name: Run migrations
           working_directory: ./backend
           command: |
-              # echo ENVIRONMENT=production > .env
-              # echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> .env
-              # echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> .env
-              # echo TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> .env
-              # echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> .env
-              # echo TYPEORM_HOST=$TYPEORM_HOST >> .env
-              # echo TYPEORM_PORT=$TYPEORM_PORT >> .env
-              # echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> .env
-              # echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> .env
-              # echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> .env
-              # . .env
-              export ENVIRONMENT=production
-              export TYPEORM_CONNECTION=postgres
-              export TYPEORM_MIGRATIONS_DIR=./src/migrations
-              export TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
-              export TYPEORM_MIGRATIONS=./src/migrations/*.ts
-              export TYPEORM_HOST=database-1.c4y0zs5elxz9.us-east-1.rds.amazonaws.com
-              export TYPEORM_PORT=5432
-              export TYPEORM_USERNAME=postgres
-              export TYPEORM_PASSWORD=Mqwkd1vNJvTjeTuRopZ7
-              export TYPEORM_DATABASE=postgres
+              echo ENVIRONMENT=production > .env
+              echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> .env
+              echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> .env
+              echo TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> .env
+              echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> .env
+              echo TYPEORM_HOST=$TYPEORM_HOST >> .env
+              echo TYPEORM_PORT=$TYPEORM_PORT >> .env
+              echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> .env
+              echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> .env
+              echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> .env
+              . .env
+              # export ENVIRONMENT=production
+              # export TYPEORM_CONNECTION=postgres
+              # export TYPEORM_MIGRATIONS_DIR=./src/migrations
+              # export TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
+              # export TYPEORM_MIGRATIONS=./src/migrations/*.ts
+              # export TYPEORM_HOST=database-1.c4y0zs5elxz9.us-east-1.rds.amazonaws.com
+              # export TYPEORM_PORT=5432
+              # export TYPEORM_USERNAME=postgres
+              # export TYPEORM_PASSWORD=Mqwkd1vNJvTjeTuRopZ7
+              # export TYPEORM_DATABASE=postgres
               # ls ./src/migrations
               aws rds describe-db-instances
               # npm install
