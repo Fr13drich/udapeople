@@ -1,0 +1,3 @@
+Public Url to GitHub repository: https://github.com/Fr13drich/udapeople
+Public URL for your S3 Bucket: http://d9huobenzx9l6.cloudfront.net/#/employees
+			       arn:aws:s3:::udapeople-e62196f

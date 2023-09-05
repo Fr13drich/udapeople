@@ -1,0 +1,20 @@
+ubuntu
+#!/bin/bash
+apt-get update -y
+apt-get install apache2 -y
+systemctl start apache2.service
+cd /var/www/html
+echo "Udacity Demo Web Server Up and Running!" > index.html
+apt install awscli
+aws s3 cp s3://iacbucket409196131742/index.html /var/www/html/
+
+aws
+           #!/bin/bash
+            sudo yum update -y
+            sudo yum install -y httpd
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+            #cd /var/www/html
+            #echo "Udacity Demo Web Server Up and Running!" > index.html
+            aws s3 cp s3://iacbucket409196131742/index.html /var/www/html/
+  
